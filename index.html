@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Butulka Oyunu</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background-color:#2c3e50; display:flex; justify-content:center; align-items:center; height:100vh; font-family:Arial, sans-serif; flex-direction:column; }
+.game-container { text-align:center; }
+.table {
+    width:350px; height:350px; background:#8e5431; border:10px solid #5c351e;
+    border-radius:50%; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.5); margin:0 auto;
+}
+.bottle-container {
+    position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+    width:100px; height:100px; display:flex; justify-content:center; align-items:center; z-index:10;
+}
+#bottle {
+    width:35px; height:100px; background:#27ae60; border-radius:15px 15px 5px 5px;
+    transition: transform 4s cubic-bezier(0.15, 0.9, 0.25, 1);
+    display:flex; justify-content:center; align-items:center; font-size:30px;
+}
+.player { position:absolute; width:50px; text-align:center; color:white; font-size:11px; }
+.player img { width:40px; height:40px; border-radius:50%; border:2px solid #f1c40f; object-fit:cover; background:#fff; }
+.player-1 { top:5px; left:140px; }
+.player-2 { top:45px; right:20px; }
+.player-3 { top:140px; right:5px; }
+.player-4 { bottom:45px; right:20px; }
+.player-5 { bottom:5px; left:140px; }
+.player-6 { bottom:45px; left:20px; }
+.player-7 { top:140px; left:5px; }
+.player-8 { top:45px; left:20px; }
+#spin-btn {
+    margin-top:30px; padding:12px 30px; font-size:18px; font-weight:bold;
+    background-color:#e67e22; color:white; border:none; border-radius:25px;
+    cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+#spin-btn:disabled { background:#95a5a6; }
+</style>
+</head>
+<body>
+
+<div class="game-container">
+    <div class="table" id="table">
+        <div class="bottle-container">
+            <div id="bottle">🍾</div>
+        </div>
+        <!-- 8 Oyunçu -->
+        <div class="player player-1"><img src="https://i.pravatar.cc/40?img=1"><br>Player 1</div>
+        <div class="player player-2"><img src="https://i.pravatar.cc/40?img=2"><br>Player 2</div>
+        <div class="player player-3"><img src="https://i.pravatar.cc/40?img=3"><br>Player 3</div>
+        <div class="player player-4"><img src="https://i.pravatar.cc/40?img=4"><br>Player 4</div>
+        <div class="player player-5"><img src="https://i.pravatar.cc/40?img=5"><br>Player 5</div>
+        <div class="player player-6"><img src="https://i.pravatar.cc/40?img=6"><br>Player 6</div>
+        <div class="player player-7"><img src="https://i.pravatar.cc/40?img=7"><br>Player 7</div>
+        <div class="player player-8"><img src="https://i.pravatar.cc/40?img=8"><br>Player 8</div>
+    </div>
+    <button id="spin-btn" onclick="spinBottle()">FIRLAT</button>
+</div>
+
+<script>
+let currentRotation = 0;
+function spinBottle() {
+    const bottle = document.getElementById("bottle");
+    const btn = document.getElementById("spin-btn");
+    btn.disabled = true;
+    btn.innerText = "Fırlanır...";
+    const extraDegrees = Math.floor(Math.random() * 360);
+    const totalSpin = 1800 + extraDegrees;
+    currentRotation += totalSpin;
+    bottle.style.transform = `rotate(${currentRotation}deg)`;
+    setTimeout(() => {
+        btn.disabled = false;
+        btn.innerText = "FIRLAT";
+    }, 4000);
+}
+</script>
+
+</body>
+</html>
